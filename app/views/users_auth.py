@@ -31,7 +31,7 @@ def register_user():
         return jsonify({ 'status':'Fail','message': 'A stronger password  is required'}), 400
 
     new_user = UsersModel(name, email, password)
-    UsersModel.insert_user(new_user)
+    new_user.insert_user()
 
     return jsonify({'status':'success', 'message': 'User {} has been registered'.format(name)}), 201
 
