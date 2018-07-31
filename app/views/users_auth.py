@@ -1,10 +1,32 @@
 #imports
 from flask import Blueprint, jsonify, request, make_response
 import re
+from passlib import sha256_crypt
+import jwt
+from flask_jwt_extended import (
+    JWTManager, jwt_required, create_access_token, get_jwt_identity)
+import datetime
+from functools import wraps
 from ..models.user_model import UsersModel
 
 #create a blueprint
 users = Blueprint('users',__name__)
+
+
+def protected(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth:
+            return jsonify({'message': 'Token missing'})
+        else:
+            try:
+                jwt.decode(auth, 'charles123', algorithms=['HS256'])
+            except Exception as error:
+                print(error)
+                return jsonify({'message': 'Invalid token'})
+        return f(*args, **kwargs)
+    return decorated
 
 
 @users.route('/api/v1/auth/signup', methods=['POST'])
@@ -56,5 +78,8 @@ def login_user():
         return jsonify({'Message': 'password  is required'}), 400
 
     loggedin_user = UsersModel.fetch_user(email)
+
+    token = jwt.encode({"email": email, 'exp': datetime.datetime.utcnow(
+    ) + datetime.timedelta(minutes=20)}, 'charles123')
 
     return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
