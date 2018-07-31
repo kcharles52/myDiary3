@@ -7,5 +7,7 @@ class UsersModel:
         self.name = name
         self.email = email
         self.password = password
-
+    
+    def insert_user(self):
+        users.append(self)
 
