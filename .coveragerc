@@ -5,20 +5,21 @@
     *.pyc
     *venv/*
     *asyncio/*
-    *concurrent/*     
-    *ctypes/*                   
-    *decimal.py                         
-    *encodings/*               
-    *hmac.py                             
+    *concurrent/*
+    *ctypes/*
+    *decimal.py
+    *encodings/*
+    *hmac.py
     *html/*
-    *http/cookiejar.py 
+    *http/cookiejar.py
     *mimetypes.py
     *multiprocessing/*
-    *numbers.py      
-    *stringprep.py                       
-    *uuid.py  
+    *numbers.py
+    *stringprep.py
+    *uuid.py
     */site-packages/*
     *fixtures/*
     *fileinput.py*
     *typing.py*
     *_bootlocale.py*
+    *crypt.py
