@@ -1,7 +1,7 @@
 import unittest
 
-from app.views import app
-from app.models import diaryEntries, users
+from app.instance import app
+from app.models.user_model import users
 
 #Base test class for users
 class BaseTestCaseUser(unittest.TestCase):

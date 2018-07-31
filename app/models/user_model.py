@@ -1,6 +1,8 @@
 
+users = []
 class UsersModel:
-    
+    """This class is used to create user instances"""
+
     def __init__(self, name, email,password):
         self.name = name
         self.email = email

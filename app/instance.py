@@ -1,6 +1,6 @@
 #imports
 from flask import Flask
-from views.users_auth import users
+from .views.users_auth import users
 
 #create flask application
 app = Flask(__name__)
