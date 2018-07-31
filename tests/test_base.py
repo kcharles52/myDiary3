@@ -20,3 +20,16 @@ class BaseTestCaseUser(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+
+class BaseTestCaseDiaryEntry(unittest.TestCase):
+    def setUp(self):
+        self.test_client = app.test_client()
+        self.diary_entry_data = {
+            "diaryTitle": "wedding Dm",
+            "date": "1/2/2017",
+            "diaryEntryBody": "This some message for the entry in the diary",
+        }
+
+    def tearDown(self):
+        pass
