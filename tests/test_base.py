@@ -1,7 +1,7 @@
 import unittest
 
 from app.instance import app
-from app.models.user_model import users
+# from app.models.user_model import users
 
 #Base test class for users
 class BaseTestCaseUser(unittest.TestCase):
@@ -19,4 +19,4 @@ class BaseTestCaseUser(unittest.TestCase):
         }
 
     def tearDown(self):
-        users[:] = []
+        pass
