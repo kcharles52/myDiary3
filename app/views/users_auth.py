@@ -1,7 +1,7 @@
 #imports
 from flask import Blueprint, jsonify, request, make_response
 import re
-from passlib import sha256_crypt
+from passlib.hash import sha256_crypt
 import jwt
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token, get_jwt_identity)
@@ -52,7 +52,9 @@ def register_user():
     if not password or password == "" or len(password) < 5:
         return jsonify({ 'status':'Fail','message': 'A stronger password  is required'}), 400
 
-    new_user = UsersModel(name, email, password)
+    #hash the password
+    hashed_password = sha256_crypt.encrypt(password)
+    new_user = UsersModel(name, email, hashed_password)
     new_user.insert_user()
 
     return jsonify({'status':'success', 'message': 'User {} has been registered'.format(name)}), 201
@@ -79,7 +81,12 @@ def login_user():
 
     loggedin_user = UsersModel.fetch_user(email)
 
-    token = jwt.encode({"email": email, 'exp': datetime.datetime.utcnow(
-    ) + datetime.timedelta(minutes=20)}, 'charles123')
+    submited_password = sha256_crypt.encrypt(password)
+    stored_password = loggedin_user[3]
+
+    if sha256_crypt.verify(submited_password,stored_password):
+        token = jwt.encode({"email": email, 'exp': datetime.datetime.utcnow()
+        + datetime.timedelta(minutes=20)}, 'charles123')
+        return jsonify(token.decode('utf-8'))
 
     return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
