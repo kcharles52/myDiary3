@@ -23,7 +23,7 @@ class UserTest(BaseTestCaseUser):
 
     def test_register_user_without_email(self):
         """Function to test user registration without email fails"""
-        response = self.test_client.post('/api/v1/auth/sigup',
+        response = self.test_client.post('/api/v1/auth/signup',
          data=json.dumps({"name":"kato","email":"","password":"12345"}),
          content_type='application/json')
         self.assertEqual(response.status_code,400)
@@ -37,7 +37,7 @@ class UserTest(BaseTestCaseUser):
 
     def test_register_user_without_name(self):
         """Function to test user registration without name fails"""
-        response = self.test_client.post('/api/v1/users', data=json.dumps(
+        response = self.test_client.post('/api/v1/auth/signup', data=json.dumps(
             {"name": "", "email": "kato@gmail.com", "password": "12345"}),
             content_type='application/json')
         self.assertEqual(response.status_code, 400)
