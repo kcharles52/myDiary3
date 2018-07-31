@@ -38,5 +38,23 @@ def register_user():
 
 @users.route('/api/v1/auth/login', methods=['POST'])
 def login_user():
-    pass
 
+    # getting user login data
+    user_login_data = request.get_json()
+
+    #check if returned user data is empty
+    if not user_login_data:
+        return jsonify({'Message': 'All fields are required'}), 400
+
+    email = str(user_login_data.get('email')).strip()
+    password = str(user_login_data.get('password')).strip()
+
+    if not email or email == "":
+        return jsonify({'Message': 'email is required'}), 400
+
+    if not password or password == "":
+        return jsonify({'Message': 'password  is required'}), 400
+
+    loggedin_user = UsersModel.fetch_user(email)
+
+    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
