@@ -29,6 +29,7 @@ class BaseTestCaseDiaryEntry(unittest.TestCase):
             "diaryTitle": "wedding Dm",
             "date": "1/2/2017",
             "diaryEntryBody": "This some message for the entry in the diary",
+            "user_id":"2"
         }
 
     def tearDown(self):
