@@ -13,4 +13,9 @@ class DiaryEntry:
     def create_entry(self):
         conn.cursor.execute("""INSERT INTO entries(diaryTitle,diaryBody,diaryDate,user_id) VALUES (%s,%s,%s,%s) """,
                             (self.diaryTitle, self.diaryEntryBody, self.date, self.user_id))
-        conn.connection.close()
+
+    @classmethod
+    def fetch_all_entries(cls,user_id):
+        conn.cursor.execute("""SELECT * FROM entries WHERE user_id=%s""",[user_id])
+        fetched_entries = conn.cursor.fetchall()
+        return fetched_entries
