@@ -53,6 +53,9 @@ class UserTest(BaseTestCaseUser):
     def test_user_login_with_all_data(self):
         """Function to check successful user login"""
         response = self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        response = self.test_client.post(
             '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
         self.assertEqual(response.status_code, 200)
         self.assertIn("Welcome Kato. You are logged in", str(response.data))

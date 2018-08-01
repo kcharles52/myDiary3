@@ -3,10 +3,14 @@ from app.instance import app
 from .test_base import BaseTestCaseDiaryEntry
 
 
+
 class EntriesTest(BaseTestCaseDiaryEntry):
         #tests for creating diary entry
     def test_create_entry(self):
         """ Tests whether a user can create an entry successfully """
+        response = self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
         response = self.test_client.post(
             '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
         self.assertEqual(response.status_code, 201)
