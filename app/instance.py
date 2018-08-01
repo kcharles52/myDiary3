@@ -5,8 +5,9 @@ from .views.entries_view import entries
 import db
 
 db_instance = db.DatabaseConnection()
-db_instance.create_table_entries()
 db_instance.create_table_users()
+db_instance.create_table_entries()
+
 
 
 #create flask application
