@@ -1,8 +1,6 @@
 from  flask import Blueprint, jsonify, request, make_response
 import datetime
-
 from ..models.diaryEntries_model import DiaryEntry
-
 
 
 #create entries blueprint
@@ -31,7 +29,7 @@ def create_entry():
     if not diaryEntryBody or diaryEntryBody == "":
         return jsonify({'Message': 'Field required: Please write someting'}), 400
 
-    # new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user_id)
-
+    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, 1) # review user id
+    new_diary_entry.create_entry()
 
     return jsonify({'Message': 'You have successfully created your entry'}), 201
