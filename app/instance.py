@@ -2,6 +2,12 @@
 from flask import Flask
 from .views.users_auth import users
 from .views.entries_view import entries
+import db
+
+db_instance = db.DatabaseConnection()
+db_instance.create_table_entries()
+db_instance.create_table_users()
+
 
 #create flask application
 app = Flask(__name__)
