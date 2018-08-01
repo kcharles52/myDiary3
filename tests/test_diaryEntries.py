@@ -64,3 +64,22 @@ class EntriesTest(BaseTestCaseDiaryEntry):
         response = self.test_client.get(
             '/api/v1/entries', content_type='application/json')
         self.assertEqual(response.status_code, 200)
+
+    #tests for fetching single entry
+
+    def test_get_single_entry(self):
+        """ Tests  whether an entry can be returned by id successfully """
+        response = self.test_client.post(
+            '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
+        response = self.test_client.get(
+            '/api/v1/entries/1', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_single_entry_id_unavailable(self):
+        """ Tests  whether a user can retrieve an entry with an id that doen't exist """
+        response = self.test_client.post(
+            '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
+        response = self.test_client.get(
+            '/api/v1/entries/3', content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('Diary Entry Not Found', str(response.data))
