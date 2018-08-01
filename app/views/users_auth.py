@@ -66,7 +66,5 @@ def login_user():
     stored_password = loggedin_user[3]
 
     if sha256_crypt.verify(submited_password,stored_password):
-       generated_token = generate_token(email)
-
-    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1]),
-    "token":generated_token}), 200
+       pass
+    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
