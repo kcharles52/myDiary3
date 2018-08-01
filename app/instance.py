@@ -7,5 +7,5 @@ from .views.entries_view import entries
 app = Flask(__name__)
 
 #Add blueprints to the flask application instance
-app.register_blueprint(users)
-app.register_blueprint(entries)
+app.register_blueprint(users, url_prefix='/api/v1/auth')
+app.register_blueprint(entries, url_prefix='/api/v1')
