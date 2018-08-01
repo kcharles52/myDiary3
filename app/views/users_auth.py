@@ -3,11 +3,10 @@ from flask import Blueprint, jsonify, request, make_response
 import re
 from passlib.hash import sha256_crypt
 import jwt
-from flask_jwt_extended import (
-    JWTManager, jwt_required, create_access_token, get_jwt_identity)
 import datetime
 from functools import wraps
 from ..models.user_model import UsersModel
+from .decorate_endpoint import generate_token
 
 #create a blueprint
 users = Blueprint('users',__name__)
@@ -29,7 +28,7 @@ def protected(f):
     return decorated
 
 
-@users.route('/api/v1/auth/signup', methods=['POST'])
+@users.route('/signup', methods=['POST'])
 def register_user():
     #get user data from request
     user_registration_data = request.get_json()
@@ -60,7 +59,7 @@ def register_user():
     return jsonify({'status':'success', 'message': 'User {} has been registered'.format(name)}), 201
 
 
-@users.route('/api/v1/auth/login', methods=['POST'])
+@users.route('/login', methods=['POST'])
 def login_user():
 
     # getting user login data
@@ -85,8 +84,6 @@ def login_user():
     stored_password = loggedin_user[3]
 
     if sha256_crypt.verify(submited_password,stored_password):
-        token = jwt.encode({"email": email, 'exp': datetime.datetime.utcnow()
-        + datetime.timedelta(minutes=20)}, 'charles123')
-        return jsonify(token.decode('utf-8'))
-
+       generated_token = generate_token(email)
+    
     return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
