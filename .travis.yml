@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.5.2"
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+
+#Add required services
+services:
+  - postgresql
+
+#create database
+before_script:
+  - psql -c 'create database diarytestdb;' -U postgres
+
+# command to run tests
+script:
+  - nosetests --with-coverage
+after_success:
+  - coveralls
