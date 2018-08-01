@@ -16,6 +16,7 @@ class UsersModel():
     @staticmethod
     def fetch_user(email):
         conn.cursor.execute("""SELECT * FROM users WHERE email=%s""",[email])
-        returned_user = conn.cursor.fetchone()
+        fetched_user = conn.cursor.fetchone()
+        fetched_user = fetched_user
         conn.connection.close()
-        return returned_user
+        return fetched_user
