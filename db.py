@@ -17,12 +17,12 @@ class DatabaseConnection:
 
     def create_table_users(self):
         create_database_table = " CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, \
-         name  VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL UNIQUE, \
-         password VARCHAR(100) NOT NULL, create_date TIMESTAMP DEFAULT  CURRENT_TIMESTAMP)"
+         name  VARCHAR(50) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, \
+         password VARCHAR NOT NULL, create_date TIMESTAMP DEFAULT  CURRENT_TIMESTAMP)"
         self.cursor.execute(create_database_table)
 
     def delete_table(self):
-        delete = "DROP TABLE users"
+        delete = "TRUNCATE TABLE users RESTART IDENTITY CASCADE"
         self.cursor.execute(delete)
 
     def close(self):
