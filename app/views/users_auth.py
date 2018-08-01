@@ -4,7 +4,7 @@ import re
 from passlib.hash import sha256_crypt
 
 from ..models.user_model import UsersModel
-from .decorate_endpoint import generate_token
+
 
 #create a blueprint
 users = Blueprint('users',__name__)
