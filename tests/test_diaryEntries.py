@@ -69,7 +69,10 @@ class EntriesTest(BaseTestCaseDiaryEntry):
 
     def test_get_single_entry(self):
         """ Tests  whether an entry can be returned by id successfully """
-        response = self.test_client.post(
+        self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        self.test_client.post(
             '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
         response = self.test_client.get(
             '/api/v1/entries/1', content_type='application/json')
@@ -77,7 +80,10 @@ class EntriesTest(BaseTestCaseDiaryEntry):
 
     def test_get_single_entry_id_unavailable(self):
         """ Tests  whether a user can retrieve an entry with an id that doen't exist """
-        response = self.test_client.post(
+        self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        self.test_client.post(
             '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
         response = self.test_client.get(
             '/api/v1/entries/3', content_type='application/json')
