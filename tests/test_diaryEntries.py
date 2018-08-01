@@ -57,6 +57,9 @@ class EntriesTest(BaseTestCaseDiaryEntry):
     def test_get_all_entries(self):
         """ Tests whether a user can get all entries """
         response = self.test_client.post(
+                    '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+                    content_type='application/json')
+        response = self.test_client.post(
             '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
         response = self.test_client.get(
             '/api/v1/entries', content_type='application/json')
