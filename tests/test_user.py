@@ -42,4 +42,31 @@ class UserTest(BaseTestCaseUser):
             content_type='application/json')
         self.assertEqual(response.status_code, 400)
 
+    #user login tests
+    def test_user_login_without_all_data(self):
+        """Function to check unsuccesful user login with empty fields"""
+        response = self.test_client.post(
+            '/api/v1/auth/login', data=json.dumps({}), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("All fields are required", str(response.data))
 
+    def test_user_login_with_all_data(self):
+        """Function to check successful user login"""
+        response = self.test_client.post(
+            '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Welcome Kato. You are logged in", str(response.data))
+
+    def test_login_without_password(self):
+        """Function to check user login without password fails"""
+        response = self.test_client.post('/api/v1/auth/login', data=json.dumps(
+            {"email": "kato@gmail.com", "password": ""}), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('password  is required', str(response.data))
+
+    def test_login_without_email(self):
+        """Function to check user login without email fails"""
+        response = self.test_client.post('/api/v1/auth/login', data=json.dumps(
+            {"email": "", "password": "123456"}), content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('email is required', str(response.data))

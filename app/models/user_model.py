@@ -13,3 +13,9 @@ class UsersModel():
     def insert_user(self):
         conn.cursor.execute("""INSERT INTO users(name,email,password) VALUES (%s,%s,%s) """, (self.name, self.email, self.password))
         conn.connection.close()
+    @staticmethod
+    def fetch_user(email):
+        conn.cursor.execute("""SELECT * FROM users WHERE email=%s""",[email])
+        returned_user = conn.cursor.fetchone()
+        conn.connection.close()
+        return returned_user
