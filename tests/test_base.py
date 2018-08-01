@@ -31,6 +31,11 @@ class BaseTestCaseUser(unittest.TestCase):
 class BaseTestCaseDiaryEntry(unittest.TestCase):
     def setUp(self):
         self.test_client = app.test_client()
+        self.user_register_data = {
+            "name": "Kato",
+            "email": "kato@gmail.com",
+            "password": "123456"
+        }
         self.diary_entry_data = {
             "diaryTitle": "wedding Dm",
             "date": "1/2/2017",
@@ -40,4 +45,4 @@ class BaseTestCaseDiaryEntry(unittest.TestCase):
 
     def tearDown(self):
         cursor = connection.cursor
-        cursor.execute("""TRUNCATE TABLE entries RESTART IDENTITY CASCADE""")
+        cursor.execute("""TRUNCATE TABLE entries , users RESTART IDENTITY CASCADE""")
