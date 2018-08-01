@@ -4,11 +4,12 @@ import datetime
 from ..models.diaryEntries_model import DiaryEntry
 
 
+
 #create entries blueprint
 entries = Blueprint('entries',__name__)
 
 
-@entries.route("/api/v1/entries", methods=["POST"])
+@entries.route("/entries", methods=["POST"])
 def create_entry():
     """ Endpoint to create a diary entry given the entry data """
     # get request data
@@ -30,7 +31,7 @@ def create_entry():
     if not diaryEntryBody or diaryEntryBody == "":
         return jsonify({'Message': 'Field required: Please write someting'}), 400
 
-    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user_id)
+    # new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user_id)
 
 
     return jsonify({'Message': 'You have successfully created your entry'}), 201
