@@ -2,30 +2,12 @@
 from flask import Blueprint, jsonify, request, make_response
 import re
 from passlib.hash import sha256_crypt
-import jwt
-import datetime
-from functools import wraps
+
 from ..models.user_model import UsersModel
 from .decorate_endpoint import generate_token
 
 #create a blueprint
 users = Blueprint('users',__name__)
-
-
-def protected(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth:
-            return jsonify({'message': 'Token missing'})
-        else:
-            try:
-                jwt.decode(auth, 'charles123', algorithms=['HS256'])
-            except Exception as error:
-                print(error)
-                return jsonify({'message': 'Invalid token'})
-        return f(*args, **kwargs)
-    return decorated
 
 
 @users.route('/signup', methods=['POST'])
@@ -85,5 +67,6 @@ def login_user():
 
     if sha256_crypt.verify(submited_password,stored_password):
        generated_token = generate_token(email)
-    
-    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
+
+    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1]),
+    "token":generated_token}), 200
