@@ -63,10 +63,10 @@ def login_user():
 
     loggedin_user = UsersModel.fetch_user(email)
 
-    # submited_password = sha256_crypt.encrypt(password)
     stored_password = loggedin_user[3]
-
+    generated_token = None
     if sha256_crypt.verify(password,stored_password):
        email,user_id = email,loggedin_user[0]
        generated_token = generate_token({"email":email,"user_id":user_id})
+       print(generated_token)
     return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
