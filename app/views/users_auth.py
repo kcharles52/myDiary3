@@ -4,6 +4,7 @@ import re
 from passlib.hash import sha256_crypt
 
 from ..models.user_model import UsersModel
+from ..views.decorate_endpoint import generate_token
 
 
 #create a blueprint
@@ -62,10 +63,10 @@ def login_user():
 
     loggedin_user = UsersModel.fetch_user(email)
 
-    submited_password = sha256_crypt.encrypt(password)
+    # submited_password = sha256_crypt.encrypt(password)
     stored_password = loggedin_user[3]
 
-    if sha256_crypt.verify(submited_password,stored_password):
-       pass
-
-    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1])}), 200
+    if sha256_crypt.verify(password,stored_password):
+       email,user_id = email,loggedin_user[0]
+       generated_token = generate_token({"email":email,"user_id":user_id})
+    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
