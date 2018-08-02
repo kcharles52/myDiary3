@@ -10,7 +10,7 @@ entries = Blueprint('entries',__name__)
 
 @entries.route("/entries", methods=["POST"])
 @protected
-def create_entry(user_id):
+def create_entry(user):
     """ Endpoint to create a diary entry given the entry data """
     # get request data
     diary_entry_data = request.get_json()
@@ -31,7 +31,7 @@ def create_entry(user_id):
     if not diaryEntryBody or diaryEntryBody == "":
         return jsonify({'Message': 'Field required: Please write someting'}), 400
 
-    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user_id) # review user id
+    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user['user_id']) 
     new_diary_entry.create_entry()
 
     return jsonify({'Message': 'You have successfully created your entry'}), 201
@@ -39,9 +39,9 @@ def create_entry(user_id):
 
 @entries.route("/entries", methods=["GET"])
 @protected
-def fetch_entries(user_id):
+def fetch_entries(user):
     myEntries = []
-    available_entries = DiaryEntry.fetch_all_entries(user_id)
+    available_entries = DiaryEntry.fetch_all_entries(user['user_id'])
 
     if not available_entries or len(available_entries) < 1:
         return jsonify({"Message": "You have no entries"}), 404
@@ -57,9 +57,9 @@ def fetch_entries(user_id):
 #route for fetching single entry by id
 @entries.route('entries/<int:entry_id>', methods=['GET'])
 @protected
-def get_single_entry(entry_id):
+def get_single_entry(user,entry_id):
     """ Endpoint to fetch a single entry """
-    available_entry = DiaryEntry.fetch_single_entry(entry_id) 
+    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id) 
     if len(available_entry) < 1:
         return jsonify({"Message": "Diary Entry Not Found"}), 404
     else:
