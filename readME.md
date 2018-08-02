@@ -38,7 +38,7 @@ You must have the following installed on your computer
 
 ## Endpoints
 HTTP Method|End point |Action        |Note
------------|----------|--------------|--------------
+-----------------|---------------------------|--------------|--------------
 POST | /api/v1/auth/signup | Register a user|
 POST | /api/v1/auth/login | Login a user|
 GET| /api/v1/entries   | Fetch all entries for a user
