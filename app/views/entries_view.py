@@ -1,6 +1,7 @@
 from  flask import Blueprint, jsonify, request, make_response
 import datetime
 from ..models.diaryEntries_model import DiaryEntry
+from ..views.decorate_endpoint import protected
 
 
 #create entries blueprint
@@ -8,7 +9,8 @@ entries = Blueprint('entries',__name__)
 
 
 @entries.route("/entries", methods=["POST"])
-def create_entry():
+@protected
+def create_entry(user_id):
     """ Endpoint to create a diary entry given the entry data """
     # get request data
     diary_entry_data = request.get_json()
@@ -29,16 +31,17 @@ def create_entry():
     if not diaryEntryBody or diaryEntryBody == "":
         return jsonify({'Message': 'Field required: Please write someting'}), 400
 
-    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, 1) # review user id
+    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user_id) # review user id
     new_diary_entry.create_entry()
 
     return jsonify({'Message': 'You have successfully created your entry'}), 201
 
 
 @entries.route("/entries", methods=["GET"])
-def fetch_entries():
+@protected
+def fetch_entries(user_id):
     myEntries = []
-    available_entries = DiaryEntry.fetch_all_entries(1)
+    available_entries = DiaryEntry.fetch_all_entries(user_id)
 
     if not available_entries or len(available_entries) < 1:
         return jsonify({"Message": "You have no entries"}), 404
@@ -53,6 +56,7 @@ def fetch_entries():
 
 #route for fetching single entry by id
 @entries.route('entries/<int:entry_id>', methods=['GET'])
+@protected
 def get_single_entry(entry_id):
     """ Endpoint to fetch a single entry """
     available_entry = DiaryEntry.fetch_single_entry(entry_id) 
