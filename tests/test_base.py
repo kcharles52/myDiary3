@@ -6,9 +6,8 @@ from db import  DatabaseConnection
 connection = DatabaseConnection()
 
 
-#Base test class for users
 class BaseTestCase(unittest.TestCase):
-    """"This is the base class for user test class"""
+    """"This is the base class for test class"""
     def setUp(self):
         self.test_client = app.test_client()
         self.user_register_data = {
@@ -27,7 +26,15 @@ class BaseTestCase(unittest.TestCase):
             "user_id": "1"
         }
 
+        self.modified_diary_entry_data = {
+            "diaryTitle": "Modified",
+            "date": "1/2/2018",
+            "diaryEntryBody": "This entry has been modified"
+        }
     def tearDown(self):
         cursor = connection.cursor
-        cursor.execute("""TRUNCATE TABLE users RESTART IDENTITY CASCADE""")
-        cursor.execute("""TRUNCATE TABLE entries , users RESTART IDENTITY CASCADE""")
+        # cursor.execute("""TRUNCATE TABLE users RESTART IDENTITY CASCADE""")
+        cursor.execute(
+            """TRUNCATE TABLE entries , users RESTART IDENTITY CASCADE""")
+
+
