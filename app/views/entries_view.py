@@ -39,7 +39,7 @@ def create_entry():
 def fetch_entries():
     myEntries = []
     available_entries = DiaryEntry.fetch_all_entries(1)
-    
+
     if not available_entries or len(available_entries) < 1:
         return jsonify({"Message": "You have no entries"}), 404
 
@@ -50,3 +50,19 @@ def fetch_entries():
             "Message": "Successfully fetched entries",
             "entries": myEntries
         }), 200
+
+#route for fetching single entry by id
+@entries.route('/api/v1/entries/<int:entry_id>', methods=['GET'])
+def get_single_entry(entry_id):
+    """ Endpoint to fetch a single entry """
+    try:
+        available_entry = DiaryEntry.fetch_single_entry(1)  # review user id
+    except Exception as ex:
+        return ex
+    
+    if len(available_entry) < 1:
+        return jsonify({"Message": "You have no entries"}), 404
+    for entry in available_entry:
+        if entry.entry_id == entry_id:
+            return jsonify({'entry': entry}), 200
+    return jsonify({'Message': 'Diary Entry Not Found'}), 404
