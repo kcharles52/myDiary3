@@ -1,6 +1,6 @@
 class Config:
     DEBUG = False
-    APP_SECRET = "charles123"
+    SECRET_KEY = "charles123"
 
 
 class DevelopmentConfig(Config):
