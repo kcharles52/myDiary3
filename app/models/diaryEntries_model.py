@@ -26,3 +26,7 @@ class DiaryEntry:
             """SELECT * FROM entries WHERE user_id=%s""", [user_id])
         fetched_entry = conn.cursor.fetchall()
         return fetched_entry
+
+    def edit_entry(self, entry_id):
+        conn.cursor.execute(
+            """UPDATE entries SET diaryTitle = %s ,diaryBody = %s ,diaryDate = %s  WHERE entry_id=%s """, (self.diaryTitle, self.diaryEntryBody, self.date, entry_id))
