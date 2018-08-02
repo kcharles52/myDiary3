@@ -19,3 +19,10 @@ class DiaryEntry:
         conn.cursor.execute("""SELECT * FROM entries WHERE user_id=%s""",[user_id])
         fetched_entries = conn.cursor.fetchall()
         return fetched_entries
+
+    @classmethod
+    def fetch_single_entry(cls, user_id):
+        conn.cursor.execute(
+            """SELECT * FROM entries WHERE user_id=%s""", [user_id])
+        fetched_entry = conn.cursor.fetchall()
+        return fetched_entry
