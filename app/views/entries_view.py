@@ -55,4 +55,8 @@ def fetch_entries():
 @entries.route('entries/<int:entry_id>', methods=['GET'])
 def get_single_entry(entry_id):
     """ Endpoint to fetch a single entry """
-    pass
+    available_entry = DiaryEntry.fetch_single_entry(entry_id) 
+    if len(available_entry) < 1:
+        return jsonify({"Message": "Diary Entry Not Found"}), 404
+    else:
+        return jsonify({'entry': available_entry}), 200
