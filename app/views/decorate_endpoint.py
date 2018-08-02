@@ -10,7 +10,7 @@ def generate_token(subject):
     Generates the Authentication Token
     :return: string
     """
-    print(current_app.secret_key)
+
     try:
         payload = {
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
@@ -21,12 +21,13 @@ def generate_token(subject):
             payload, current_app.secret_key,
             algorithm='HS256'
         )
+
         return generated_token.decode('utf-8')
     except Exception as e:
         return e
 
 
-@staticmethod
+
 def decode_token(authentication_token):
     """
     Decodes the authentication token
@@ -45,17 +46,14 @@ def decode_token(authentication_token):
 def protected(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        auth = request.authorization
+        auth = request.headers['Authorization']
         if not auth:
             return jsonify({'message': 'Token missing'})
         else:
             try:
-                decoded_token = decode_token(auth)
-                user_id = decoded_token[0]
-                email = decoded_token[1]
-                return user_id, email
+                user = decode_token(auth)
             except Exception as error:
                 print(error)
                 return jsonify({'message': 'Invalid token'})
-        return f(user_id,*args, **kwargs)
+        return f(user,*args, **kwargs)
     return decorated
