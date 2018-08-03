@@ -52,7 +52,7 @@ def fetch_entries():
         }), 200
 
 #route for fetching single entry by id
-@entries.route('entries/<int:entry_id>', methods=['GET'])
+@entries.route('/entries/<int:entry_id>', methods=['GET'])
 def get_single_entry(entry_id):
     """ Endpoint to fetch a single entry """
     available_entry = DiaryEntry.fetch_single_entry(entry_id) 
