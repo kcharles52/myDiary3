@@ -52,7 +52,7 @@ def fetch_entries():
         }), 200
 
 #route for fetching single entry by id
-@entries.route('entries/<int:entry_id>', methods=['GET'])
+@entries.route('/entries/<int:entry_id>', methods=['GET'])
 def get_single_entry(entry_id):
     """ Endpoint to fetch a single entry """
     available_entry = DiaryEntry.fetch_single_entry(entry_id) 
@@ -60,3 +60,25 @@ def get_single_entry(entry_id):
         return jsonify({"Message": "Diary Entry Not Found"}), 404
     else:
         return jsonify({'entry': available_entry}), 200
+
+#route for modifying an entry
+@entries.route("/entries/<int:entry_id>", methods=['PUT'])
+def modify_entry(entry_id):
+    """ Endpoint to modify a given entry"""
+    available_entry = DiaryEntry.fetch_single_entry(entry_id)
+    if len(available_entry) < 1:
+        return jsonify({"Message": "You have no entries to modify"}), 404
+
+    if len(available_entry) >= 1:
+        entry_data = request.get_json()
+        diaryTitle = entry_data.get('diaryTitle')
+        date = entry_data.get('date')
+        diaryEntryBody = entry_data.get('diaryEntryBody')
+
+        modified_entry = DiaryEntry(
+                    diaryTitle, date, diaryEntryBody, 1) #review user id
+        modified_entry.edit_entry(entry_id)
+        return jsonify({
+                "entry": modified_entry.__dict__,
+                "Message": "You successfully modified your entry"
+            }), 201

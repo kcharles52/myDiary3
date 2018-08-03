@@ -1,8 +1,8 @@
 import json
-from .test_base import BaseTestCaseUser
+from .test_base import BaseTestCase
 from app.instance import app
 
-class UserTest(BaseTestCaseUser):
+class UserTest(BaseTestCase):
 
     #User registration tests
     def test_register_user_without_data(self):
