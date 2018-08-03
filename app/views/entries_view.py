@@ -67,9 +67,10 @@ def get_single_entry(user,entry_id):
 
 #route for modifying an entry
 @entries.route("/entries/<int:entry_id>", methods=['PUT'])
-def modify_entry(entry_id):
+@protected
+def modify_entry(user,entry_id):
     """ Endpoint to modify a given entry"""
-    available_entry = DiaryEntry.fetch_single_entry(entry_id)
+    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
     if len(available_entry) < 1:
         return jsonify({"Message": "You have no entries to modify"}), 404
 
@@ -80,7 +81,7 @@ def modify_entry(entry_id):
         diaryEntryBody = entry_data.get('diaryEntryBody')
 
         modified_entry = DiaryEntry(
-                    diaryTitle, date, diaryEntryBody, 1) #review user id
+                    diaryTitle, date, diaryEntryBody, user['user_id'])
         modified_entry.edit_entry(entry_id)
         return jsonify({
                 "entry": modified_entry.__dict__,
