@@ -1,4 +1,5 @@
 import unittest
+import json
 
 from app.instance import app
 from db import  DatabaseConnection
@@ -31,6 +32,17 @@ class BaseTestCase(unittest.TestCase):
             "date": "1/2/2018",
             "diaryEntryBody": "This entry has been modified"
         }
+
+        self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        
+        response = self.test_client.post(
+            '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
+        user = json.loads(response.data.decode())
+        token = user['authorization']
+        
+
     def tearDown(self):
         cursor = connection.cursor
         # cursor.execute("""TRUNCATE TABLE users RESTART IDENTITY CASCADE""")
