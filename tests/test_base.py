@@ -23,7 +23,7 @@ class BaseTestCase(unittest.TestCase):
             "diaryTitle": "wedding Dm",
             "date": "1/2/2017",
             "diaryEntryBody": "This some message for the entry in the diary",
-            "user_id":"1"
+            "user_id": "1"
         }
 
         self.modified_diary_entry_data = {

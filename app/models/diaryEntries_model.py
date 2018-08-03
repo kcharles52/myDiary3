@@ -21,10 +21,14 @@ class DiaryEntry:
         return fetched_entries
 
     @classmethod
-    def fetch_single_entry(cls, user_id):
+    def fetch_single_entry(cls, user_id, entry_id):
+        """It is used to fetch single entry
+            :params user_id, Entry_id
+            :returns tuple
+        """
         conn.cursor.execute(
-            """SELECT * FROM entries WHERE user_id=%s""", [user_id])
-        fetched_entry = conn.cursor.fetchall()
+            """SELECT * FROM entries WHERE user_id=%s AND entry_id=%s""", [user_id,entry_id])
+        fetched_entry = conn.cursor.fetchone()
         return fetched_entry
 
     def edit_entry(self, entry_id):
