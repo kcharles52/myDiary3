@@ -32,7 +32,10 @@ def register_user():
             "message": "Enter valid email"}), 400)
     if not password or password == "" or len(password) < 5:
         return jsonify({ 'status':'Fail','message': 'A stronger password  is required'}), 400
-
+    #check if already registered
+    registered_user = UsersModel.fetch_user(email)
+    if registered_user:
+        return jsonify({"message":"User already registered. Please login"})
     #hash the password
     hashed_password = sha256_crypt.encrypt(password)
     new_user = UsersModel(name, email, hashed_password)
