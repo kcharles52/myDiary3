@@ -45,3 +45,47 @@ class EntriesTest(BaseTestCaseDiaryEntry):
         self.assertEqual(response.status_code, 400)
         self.assertIn('Field required: Please write someting',
                       str(response.data))
+
+    #tests for fetching all entries
+    def test_get_all_entries_empty(self):
+        """ Tests whether a user can't fetch entries when none exists """
+        response = self.test_client.get(
+            '/api/v1/entries', content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('You have no entries', str(response.data))
+
+    def test_get_all_entries(self):
+        """ Tests whether a user can get all entries """
+        response = self.test_client.post(
+                    '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+                    content_type='application/json')
+        response = self.test_client.post(
+            '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
+        response = self.test_client.get(
+            '/api/v1/entries', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+    #tests for fetching single entry
+
+    def test_get_single_entry(self):
+        """ Tests  whether an entry can be returned by id successfully """
+        self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        self.test_client.post(
+            '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
+        response = self.test_client.get(
+            '/api/v1/entries/1', content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_single_entry_id_unavailable(self):
+        """ Tests  whether a user can retrieve an entry with an id that doen't exist """
+        self.test_client.post(
+            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+            content_type='application/json')
+        self.test_client.post(
+            '/api/v1/entries', data=json.dumps(self.diary_entry_data), content_type='application/json')
+        response = self.test_client.get(
+            '/api/v1/entries/3', content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('Diary Entry Not Found', str(response.data))
