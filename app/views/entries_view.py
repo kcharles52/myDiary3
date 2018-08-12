@@ -55,6 +55,7 @@ def fetch_entries(user):
         }), 200
 
 #route for fetching single entry by id
+
 @entries.route('entries/<int:entry_id>', methods=['GET'])
 @protected
 def get_single_entry(user,entry_id):
