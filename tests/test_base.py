@@ -13,11 +13,11 @@ class BaseTestCase(unittest.TestCase):
         self.test_client = app.test_client()
         self.user_register_data = {
             "name": "Kato",
-            "email": "kato@gmail.com",
+            "email": "kato20@gmail.com",
             "password": "123456"
         }
         self.user_login_data = {
-            "email": "kato@gmail.com",
+            "email": "kato20@gmail.com",
             "password": "123456"
         }
         self.diary_entry_data = {
@@ -33,19 +33,19 @@ class BaseTestCase(unittest.TestCase):
             "diaryEntryBody": "This entry has been modified"
         }
 
-        self.test_client.post(
-            '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
-            content_type='application/json')
+        # self.test_client.post(
+        #     '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
+        #     content_type='application/json')
         
-        response = self.test_client.post(
-            '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
-        user = json.loads(response.data.decode())
-        token = user['authorization']
-        
+        # # response = self.test_client.post(
+        #     '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
+        # user = json.loads(response.data.decode())
+        # token = user['token']
+
+
 
     def tearDown(self):
         cursor = connection.cursor
-        # cursor.execute("""TRUNCATE TABLE users RESTART IDENTITY CASCADE""")
         cursor.execute(
             """TRUNCATE TABLE entries , users RESTART IDENTITY CASCADE""")
 
