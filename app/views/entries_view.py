@@ -27,11 +27,11 @@ def create_entry(user):
     if not diaryTitle or diaryTitle == "" or diaryTitle == type(int):
         return jsonify({'Message': 'Title is required'}), 400
     if not date or date == "":
-        return jsonify({'Message': 'date is required'}), 400
+        return jsonify({'Message': 'Date is required'}), 400
     if not diaryEntryBody or diaryEntryBody == "":
         return jsonify({'Message': 'Field required: Please write someting'}), 400
 
-    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user['user_id']) 
+    new_diary_entry = DiaryEntry(diaryTitle, date, diaryEntryBody, user['user_id'])
     new_diary_entry.create_entry()
 
     return jsonify({'Message': 'You have successfully created your entry'}), 201
@@ -43,7 +43,7 @@ def fetch_entries(user):
     myEntries = []
     available_entries = DiaryEntry.fetch_all_entries(user['user_id'])
 
-    if not available_entries or len(available_entries) < 1:
+    if not available_entries or available_entries==type(None):
         return jsonify({"Message": "You have no entries"}), 404
 
     if len(available_entries) >= 1:
@@ -60,8 +60,8 @@ def fetch_entries(user):
 @protected
 def get_single_entry(user,entry_id):
     """ Endpoint to fetch a single entry """
-    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id) 
-    if len(available_entry) < 1:
+    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
+    if not available_entry or available_entry == type(None) :
         return jsonify({"Message": "Diary Entry Not Found"}), 404
     else:
         return jsonify({'entry': available_entry}), 200
@@ -72,7 +72,7 @@ def get_single_entry(user,entry_id):
 def modify_entry(user,entry_id):
     """ Endpoint to modify a given entry"""
     available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
-    if len(available_entry) < 1:
+    if not available_entry or available_entry == type(None):
         return jsonify({"Message": "You have no entries to modify"}), 404
 
     if len(available_entry) >= 1:
