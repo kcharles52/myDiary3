@@ -18,7 +18,7 @@ def generate_token(subject):
             'sub': subject
         }
         generated_token = jwt.encode(
-            payload, current_app.secret_key,
+            payload, 'kato123456',
             algorithm='HS256'
         )
 
@@ -35,7 +35,7 @@ def decode_token(authentication_token):
     :return: integer|string
     """
     try:
-        payload = jwt.decode(authentication_token, current_app.secret_key)
+        payload = jwt.decode(authentication_token, 'kato123456')
         return payload['sub']
     except jwt.ExpiredSignatureError:
         return 'Expired signature. Please log in again.'
