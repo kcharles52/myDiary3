@@ -1,7 +1,6 @@
 import json
 from .test_base import BaseTestCase
 from app.instance import app
-
 class UserTest(BaseTestCase):
 
     #User registration tests
@@ -18,8 +17,10 @@ class UserTest(BaseTestCase):
         response = self.test_client.post(
             '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
             content_type='application/json')
+        data = json.loads(response.data.decode())
+        self.assertTrue(data['status']=='success')
+        self.assertTrue(data['message'] == 'User Kato has been registered')
         self.assertEqual(response.status_code, 201)
-        self.assertIn('User Kato has been registered', str(response.data))
 
     def test_register_user_without_email(self):
         """Function to test user registration without email fails"""
@@ -52,11 +53,14 @@ class UserTest(BaseTestCase):
 
     def test_user_login_with_all_data(self):
         """Function to check successful user login"""
-        response = self.test_client.post(
+        self.test_client.post(
             '/api/v1/auth/signup', data=json.dumps(self.user_register_data),
             content_type='application/json')
         response = self.test_client.post(
             '/api/v1/auth/login', data=json.dumps(self.user_login_data), content_type='application/json')
+        data = json.loads(str(response.data.decode()))
+
+        self.assertTrue(data['token'])
         self.assertEqual(response.status_code, 200)
         self.assertIn("Welcome Kato. You are logged in", str(response.data))
 
