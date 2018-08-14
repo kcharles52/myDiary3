@@ -36,7 +36,7 @@ def register_user():
     #check if already registered
     registered_user = UsersModel.fetch_user(email)
     if registered_user:
-        return jsonify({"message":"User already registered. Please login"})
+        return jsonify({"message": "User already registered. Please login"})
     #hash the password
     hashed_password = sha256_crypt.encrypt(password)
     new_user = UsersModel(name, email, hashed_password)
@@ -67,9 +67,9 @@ def login_user():
     loggedin_user = UsersModel.fetch_user(email)
 
     stored_password = loggedin_user[3]
-    generated_token = None
+
     if sha256_crypt.verify(password,stored_password):
        email,user_id = email,loggedin_user[0]
-       generated_token = generate_token({"email":email,"user_id":user_id})
-       print(generated_token)
-    return jsonify({"Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
+       generated_token = str(generate_token({"email":email,"user_id":user_id}))
+       
+    return jsonify({ "status":"success","Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
