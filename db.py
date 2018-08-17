@@ -1,11 +1,13 @@
 import psycopg2
-
+import os
 
 class DatabaseConnection:
     def __init__(self):
 
         try:
-            connection_str = "dbname='diarytestdb' user='postgres' host='localhost' password='12345'"
+            connStr = "dbname='diarytestdb' user='postgres' host='localhost' password='12345'"
+            connection_str = os.environ.get(
+                'DATABASE_URL', connStr)
             self.connection = psycopg2.connect(connection_str)
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
