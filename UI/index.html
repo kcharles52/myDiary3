@@ -7,6 +7,7 @@
     <title>My Diary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/user.js"></script>
 
 </head>
 
@@ -75,26 +76,26 @@
                                             <label> First Name
                                                 <span class="req">*</span>
                                             </label>
-                                            <input type="text" required autocomplete="off" />
+                                            <input type="text" id="FName" required autocomplete="off" />
                                         </div>
                                         <div class="field-wrap">
                                             <label>Last Name
                                                 <span class="req">*</span>
                                             </label>
-                                            <input type="text" required autocomplete="off" />
+                                            <input type="text" id="LName" required autocomplete="off" />
                                         </div>
                                     </div>
                                     <div class="field-wrap">
                                         <label>Email Address
                                             <span class="req">*</span>
                                         </label>
-                                        <input type="email" required autocomplete="off" />
+                                        <input type="email" id="email" required autocomplete="off" />
                                     </div>
                                     <div class="field-wrap">
                                         <label>Set Password
                                             <span class="req">*</span>
                                         </label>
-                                        <input type="password" required autocomplete="off" />
+                                        <input type="password" id="password" required autocomplete="off" />
                                     </div>
                                     <div class="field-wrap">
                                         <label>Confirm Password
@@ -102,7 +103,7 @@
                                         </label>
                                         <input type="password" required autocomplete="off" />
                                     </div>
-                                    <button type="submit" class="button button-block" />Get Started</button>
+                                    <button type="submit" class="button button-block" onclick=register_user()  />Get Started</button>
                                 </form>
                                 <!--Register form-->
                             </div>
