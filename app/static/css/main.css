@@ -1,0 +1,459 @@
+/*General settings*/
+body {
+    background: #fff;
+    font-family: 'Open Sans', sans-serif;
+    color:#4e4e4e;
+    line-height: 22px;
+    margin: 0;
+}
+*,*:before,*:after {
+    box-sizing: border-box;
+}
+
+.bg{
+    background-color: #a75110;
+    color: #fff !important;
+}
+
+h1,h2{
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  color:#4e4e4e;
+}
+
+h1{
+  font-size: 36px;
+  color:#fff; }
+
+h2{font-size: 20px;}
+
+h3{
+  font-size: 16px;
+  color: #787878;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+a { 
+  color: #c46731;
+  text-decoration:none;
+  color: #fff;
+}
+
+a:hover, a:focus { 
+  color:#db8a5c;
+  text-decoration:none;
+}
+
+.button, #button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: .1em;
+    background:  #a75114;
+    color: #ffffff;
+}
+
+.button:hover,
+.button:focus, #button:hover, #button:focus {
+    background: #db8a5c;
+}
+
+.button-block {
+    display: block;
+    width: 100%;
+}
+
+.forgot {
+    margin-top: -20px;
+    text-align: right;
+}
+
+.center h2{
+  font-size: 30px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+body > section {
+  padding: 70px 0;
+}
+section {
+    min-height: 500px;
+    padding: 0 70px;
+}
+
+.center {
+  text-align: center;
+  /*! padding-bottom: 50px; */
+}
+
+/*Header styling*/
+.navbar {
+  border-radius: 0;
+  margin-bottom: 0;
+  background-color:rgb(49, 31, 24, 0.8);
+  padding: 10px 0;
+  padding-bottom: 20px;
+  overflow: auto;
+}
+
+.navbar p a{
+  font-size: 40px;
+  
+  float:left;
+  padding: 0 70px;
+}
+.navbar > nav{ 
+  float:right;
+  margin-top: -18px
+}
+
+.navbar>nav li{
+  margin-left: 35px;
+  padding-bottom: 18px;
+  float: left;
+  list-style: none;
+  position: relative;
+  clear: right;
+}
+
+.navbar nav li > a {
+  padding: 5px 12px;
+  margin: 0;
+  border-radius: 3px;
+  color: #fff;
+  line-height: 24px;
+  display: in-block;
+}
+
+.navbar nav li > a:hover{
+	background-color: #c46731;
+  color: #fff;
+}
+
+.navbar nav li > .active > a,.navbar nav li > .active > a:hover,.navbar nav li > .active > a:focus{
+	background-color: #c46731;
+  color: #fff;
+}
+
+/*Home page*/
+#home {
+    background-image: url("../img/homepagebg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home-col{
+  width:50%;
+  float: left;
+  padding:40px 10px
+}
+
+#home-msg {
+  color: rgb(233, 209, 132);
+  padding: 30% 0% 0% 35%;
+}
+
+#home-msg li {
+  padding: 5%;
+  list-style: none;
+  margin: 3% 0%;
+  width: 60%;
+  border-radius: 10px;
+}
+.clearfix::after{
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.color1 {
+    background: #2d7da4;
+}
+
+.color2 {
+    background: #6aa42f;
+}
+
+.color3  {
+    background: #ffcc33;
+}
+
+.color4 {
+    background: #db3615;
+}
+/*End of home page style*/
+
+/*Form styling*/
+
+.form {
+    background: rgb(37, 27, 26, 0.8);
+    padding: 40px;
+    max-width: 500px;
+    border-radius: 4px;
+    margin-left: 100px
+}
+
+.tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+
+.tab-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.tab-group div {
+    display: inline;
+}
+
+.tab-group div a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #a0b3b0;
+    font-size: 20px;
+    float: left;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab-group div a:hover {
+    background: #db8a5c;
+    color: #ffffff;
+}
+
+.tab-group .active a {
+    background: #a75114;
+    color: #ffffff;
+}
+
+.tab-content>div:last-child {
+    display: none;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #e9d18f;
+    font-weight: 300;
+    margin: 0 0 40px;
+}
+
+label {
+    position: absolute;
+    top: -22px;
+    color: #e9d18f;
+}
+
+label .req {
+    margin: 2px;
+    color: #db8a5c;
+}
+
+label.active {
+    left: 2px;
+    font-size: 14px;
+}
+
+label.active .req {
+    opacity: 0;
+}
+
+label.highlight {
+    color: #ffffff;
+}
+
+input,
+textarea {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    background: none;
+    background-image: none;
+    border: 1px solid #db8a5c;
+    color: #ffffff;
+    border-radius: 0;
+}
+
+input:focus,
+textarea:focus {
+    outline: 0;
+    border-color: #b7a170;
+}
+
+textarea {
+    border: 2px solid #a0b3b0;
+    resize: vertical;
+}
+
+.field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.top-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.top-row>div {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+}
+
+.top-row>div:last-child {
+    margin: 0;
+}
+
+
+/*End of form styling*/
+
+/*styling for the footer*/
+#footer{
+  background: #e9d180;
+  border-top: 5px solid #508f10;
+  font-size: 14px;
+}
+
+#footer .center {
+    padding: 20px 0;
+}
+
+/*Styling the profile page*/
+
+.profile {
+    background-color: #9f5218;
+    width: 50%;
+    margin: auto;
+}
+
+#profile-bg {
+    background-image: url('../img/dheader.jpg');
+    background-repeat: no-repeat;
+    min-height: 200px;
+    background-position-y: -150px;
+}
+
+.profile-pic {
+    margin: 0 auto;
+    width: 40%;
+    margin-top: -130px;
+}
+
+.profile-pic img {
+    border-radius: 50%;
+    padding: 5px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.profile-body {
+    width: 50%;
+    padding: 5px 10px 50px 10px;
+    margin: auto;
+}
+
+.action a {
+    border: #fff solid;
+    padding: 10px;
+}
+
+/*End of profile style*/
+
+ /* Style entries page */
+#EntriesPage h1, h2, h3 {
+    color: #fff;
+}
+ .tab {
+     overflow: hidden;
+     color:#fff;
+     /*! border: 1px solid #ccc; */
+     background-color: #853700;
+ }
+
+ .tab button {
+     background-color: inherit;
+     float: left;
+     border: none;
+     outline: none;
+     cursor: pointer;
+     padding: 14px 16px;
+     transition: 0.3s;
+     color: #fff;
+ }
+
+ .tab button:hover {
+     background-color: #ddd;
+ }
+
+ .tab button.active {
+     background-color: #ccc;
+ }
+
+ /* Style the tab content */
+
+ .tabcontent {
+     display: none;
+     padding: 6px 12px;
+     border: 1px solid #ccc;
+     border-top: none;
+ }
+
+ /*diary entries page*/
+
+ .d-table {
+     padding: 20px;
+     background-image: url("../img/dEntryBg.jpg");
+     background-repeat: no-repeat;
+ }
+
+ .d-table table {
+     padding: 2%;
+     background-color: rgb(50, 50, 50, 0.9);
+     color: white;
+ }
+
+ table {
+     border-collapse: collapse;
+ }
+
+ td,
+ th {
+     border: 1px solid #fff;
+     padding: 15px 20px;
+ }
+
+ .action a {
+     padding: 5px 10px;
+     border: 2px solid;
+     margin-right: 3px;
+ }
+
+ .dEntry {
+     max-width: 80%;
+     margin: auto;
+ }
+ 
+.diaryEntry {
+    width: 700px;
+    margin: auto;
+    background-color: rgb(20, 20, 30, 0.9);
+    padding: 40px;
+    color: gray;
+}
