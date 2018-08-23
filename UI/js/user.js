@@ -1,4 +1,4 @@
-let host_server = "http://127.0.0.1:5000"
+let host_server = "https://kato-trial.herokuapp.com"
 //function to register user
 function register_user() {
     let url = host_server + "/api/v1/auth/signup";
