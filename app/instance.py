@@ -3,6 +3,7 @@ from flask import Flask
 from flask_cors import CORS
 from .views.users_auth import users
 from .views.entries_view import entries
+from .views.UI import UI
 import db
 import logging
 
@@ -19,3 +20,4 @@ CORS(app, resources=r'/api/*')
 #Add blueprints to the flask application instance
 app.register_blueprint(users, url_prefix='/api/v1/auth')
 app.register_blueprint(entries, url_prefix='/api/v1')
+app.register_blueprint(UI)
