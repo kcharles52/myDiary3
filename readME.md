@@ -46,6 +46,7 @@ GET | /api/v1/entry/<entry_Id> | Fetch the details of an entry for a user |
 POST | /api/v1/entry | Add an entry|
 PUT | /api/v1/entries/<entry_id>/ | Modify a diary entry|An entry can only be modified on the same day it was created.
 
+https://kcharles52.github.io/myDiary3/UI/
 
 ## Author
 [Kato Charles](https://github.com/kcharles52)
