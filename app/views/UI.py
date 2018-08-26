@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from ..views.decorate_endpoint import protected
 
 
 #create blue print
@@ -14,5 +15,6 @@ def signup():
     return render_template('signup.html')
 
 @UI.route('/welcome.html', methods=['GET'])
-def home():
+@protected
+def home(user):
     return render_template('welcome.html')
