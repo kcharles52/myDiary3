@@ -103,10 +103,6 @@ function login() {
             if (reply['Message']==='Login failed, Please try again') {
                 return alert(reply['Message'])
             } else if (reply['Message']) {
-                let key = 'token';
-                let value = reply['token'];
-                localStorage.setItem(key, value);
-                console.log(localStorage.getItem('token'));
                 alert(reply['Message']);
                 window.location.href = 'welcome.html';
             }
