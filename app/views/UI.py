@@ -18,3 +18,9 @@ def signup():
 @protected
 def home(user):
     return render_template('welcome.html')
+
+
+@UI.route('/addEntry.html', methods=['GET','POST'])
+@protected
+def addEntry(user):
+    return render_template('addEntry.html')
