@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>My entry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="../static/css/main.css" />
-    <script src="../static/js/main.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="{{url_for('static', filename='css/main.css')}}" />
+    
 </head>
 
 <body>
@@ -36,23 +36,23 @@
             <div>
                 <h2>Add diary entry</h2>
             </div>
-            <form action="">
+            <form action="/addEntry">
                 <div class="top-raw">
                     <div class="field-wrap">
                         <label> Title:</label>
-                        <input type="text" />
+                        <input type="text" id="Title"/>
                     </div>
                     <div class="field-wrap">
                         <label>Date:</label>
-                        <input type="date" />
+                        <input type="date" id="date" />
                     </div>
                 </div>
                 <div class="Entrymessage">
                     <div>
-                        <textarea name="diaryMessage" placeholder="Enter you message here" cols="30" rows="10"></textarea>
+                        <textarea id="diaryMessage" name="diaryMessage" placeholder="Enter you message here" cols="30" rows="10"></textarea>
                     </div>
                     <div class="action">
-                        <a  href="#">Submit</a>
+                        <a href="" onclick=create_entry() >Submit</a>
                     </div>
                 </div>
 
@@ -64,6 +64,7 @@
             <div class="center">Designed by Charles Kato </div>
         </footer>
     </div>
+<script src="{{url_for('static', filename='js/main.js')}}"></script>
 </body>
 
 </html>
