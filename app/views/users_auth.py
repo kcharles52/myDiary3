@@ -71,5 +71,8 @@ def login_user():
     if sha256_crypt.verify(password,stored_password):
        email,user_id = email,loggedin_user[0]
        generated_token = str(generate_token({"email":email,"user_id":user_id}))
-       return jsonify({ "status":"success","Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
+       resp = make_response(jsonify({"status": "success", "Message": "Welcome {}. You are logged in".format(
+           loggedin_user[1]), "token": generated_token}), 200)
+       resp.set_cookie('token',generated_token)
+       return resp
     return jsonify({"status": "Fail", "Message": "Login failed, Please try again"}), 200
