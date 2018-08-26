@@ -54,10 +54,10 @@ function openTab(evt, tabName) {
 
 }
 
-// let host_server = "http://127.0.0.1:5000"
+let host_server = "http://127.0.0.1:5000"
 //function to register user
 function register_user() {
-    let url = "http://127.0.0.1:5000/api/v1/auth/signup";
+    let url = host_server+ "/api/v1/auth/signup";
     let Fullname = document.getElementById('FName').value + " " + document.getElementById('LName').value
     fetch(url, {
             method: 'POST',
@@ -86,7 +86,8 @@ function register_user() {
         });
 }
 function login() {
-    fetch('http://127.0.0.1:5000/api/v1/auth/login', {
+    url = host_server + '/api/v1/auth/login'
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -97,7 +98,7 @@ function login() {
         }),
         mode: 'cors',
         redirect: 'manual'
-    })
+        })
         .then(Response => Response.json())
         .then(reply => {
             if (reply['Message']==='Login failed, Please try again') {
@@ -113,4 +114,35 @@ function login() {
 function logout() {
     localStorage.removeItem('token');
     window.location.href = 'index.html';
+}
+
+function create_entry() {
+    url = host_server + '/api/v1/entries'
+    fetch(url,{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+                'diaryTitle': document.getElementById('Title').value,
+                'date': document.getElementById('date').value,
+                'diaryEntryBody': document.getElementById('diaryMessage').value
+            }),
+        mode: 'cors',
+        redirect: 'manual'
+
+    })
+        .then(Response => Response.json())
+        .then(reply => {
+            if (reply['Message'] === 'You have successfully created your entry') {
+                alert(reply['Message'])
+                window.location.href = 'diaryentries.html';
+            } else if (reply['Message']) {
+                alert(reply['Message']);
+                console.log(reply)
+            }
+            return true;
+        })
+        .catch(error => alert(error))
+
 }
