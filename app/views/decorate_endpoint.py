@@ -46,7 +46,7 @@ def decode_token(authentication_token):
 def protected(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        auth = request.headers['Authorization']
+        auth = request.cookies.get('token')
         if not auth:
             return jsonify({'message': 'Token missing'})
         else:
