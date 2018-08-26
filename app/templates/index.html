@@ -7,7 +7,8 @@
     <title>My Diary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/main.css" />
-    <script src="../static/js/user.js"></script>
+    <!-- <script src="../static/js/user.js"></script> -->
+    <!-- <script src="../static/js/main.js"></script> -->
 
 </head>
 
@@ -48,29 +49,29 @@
                         <div class="tab-content">
                             <div id="login">
                                 <h2>Welcome Back!</h2>
-                                <form action="#" method="post">
+                                <form action="index.html" method="post">
                                     <div class="field-wrap">
                                         <label>Email Address
                                             <span class="req">*</span>
                                         </label>
-                                        <input type="email" required autocomplete="off" />
+                                        <input type="email" id="logEmail" required autocomplete="off" />
                                     </div>
                                     <div class="field-wrap">
                                         <label>Password
                                             <span class="req">*</span>
                                         </label>
-                                        <input type="password" required autocomplete="off" />
+                                        <input type="password" id="password" required autocomplete="off" />
                                     </div>
                                     <p class="forgot-p">
                                         <a href="#">Forgot Password?</a>
                                     </p>
-                                    <a id="button" href="welcome.html" class="button button-block" /> Log In</a>
+                                    <a id="button" onclick=login() class="button button-block" /> Log In</a>
                                 </form>
                                 <!-- Login form-->
                             </div>
                             <div id="signup">
                                 <h2>Register for an Account</h2>
-                                <form action="#" method="post">
+                                <form action="index.html" method="post">
                                     <div class="top-row">
                                         <div class="field-wrap">
                                             <label> First Name
