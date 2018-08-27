@@ -65,6 +65,8 @@ def login_user():
         return jsonify({'Message': 'password  is required'}), 400
 
     loggedin_user = UsersModel.fetch_user(email)
+    if not loggedin_user:
+        return jsonify({'Message': 'User not found, please register'}), 400
 
     stored_password = loggedin_user[3]
 
