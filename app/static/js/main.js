@@ -1,3 +1,5 @@
+let host_server = "http://127.0.0.1:5000"
+
 //Switch tabs on the home page
 function switchTab(evt, tabName) {
     var classes = document.getElementsByClassName('tab')
@@ -54,7 +56,7 @@ function openTab(evt, tabName) {
 
 }
 
-let host_server = "http://127.0.0.1:5000"
+
 //function to register user
 function register_user() {
     let url = host_server+ "/api/v1/auth/signup";
@@ -103,9 +105,9 @@ function login() {
         .then(reply => {
             if (reply['Message']==='Login failed, Please try again') {
                 return alert(reply['Message'])
-            } else if (reply['Message']) {
+            } else{
                 alert(reply['Message']);
-                window.location.href = 'welcome.html';
+                window.location= 'welcome.html';
             }
             return true;
         })
@@ -146,3 +148,47 @@ function create_entry() {
         .catch(error => alert(error))
 
 }
+
+function fetch_entries() {
+    url = host_server + '/api/v1/entries'
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        redirect: 'manual'
+        })
+        .then(Response => Response.json())
+        .then(data => {
+            if (data['Message'] === 'Successfully fetched entries') {
+                let output = `
+                        <table>
+                            <tr>
+                            <th> Date </th> <th> Title </th> <th> Category </th> <th> Action </th>
+                            </tr> `;
+
+                data['entries'].forEach((entry) => {
+                    output +=`
+                    <tr class="ceremony">
+                    <td>${entry.Date}</td>
+                    <td><a href="">${entry.title}</a></td>
+                    <td>ceremony</td>
+                    <td class="action"><a href="#">Edit</a><a href="#">Archive</a></td>
+                    </tr>
+                    `
+                });
+                output += `</table>`;
+
+               document.getElementById('AllEntries').innerHTML = output;
+                console.log(data);
+
+            } else if (data['Message']) {
+                alert(data['Message']);
+                console.log(data)
+            }
+            return true;
+        })
+        .catch(error => alert(error))
+    }
+
