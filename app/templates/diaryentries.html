@@ -40,7 +40,7 @@
   <section>
                 <!-- Tab links -->
             <div class="tab">
-                <button class="tablinks" onclick="openTab(event, 'A-entries')">All entries</button>
+                <button class="tablinks" onclick="fetch_entries()">All entries</button>
                 <button class="tablinks" onclick="openTab(event, 'celemony')">Celemonies</button>
                 <button class="tablinks" onclick="openTab(event, 'Travel')">Travel</button>
             </div>
@@ -48,7 +48,7 @@
             <!-- Tab content -->
             <div id="A-entries" class="activeTab">
                 <h3>All Entries</h3>
-               <div class="d-table">
+               <div class="d-table" id="AllEntries" >
             <table>
                 <tr>
                     <th>Date</th>
