@@ -48,7 +48,8 @@ def fetch_entries(user):
 
     if len(available_entries) >= 1:
         for entry in available_entries:
-            myEntries.append(entry)
+            myEntries.append(
+                { "id":entry[0], "title": entry[1], "Diary Body": entry[2], "Date": entry[3]})
         return jsonify({
             "Message": "Successfully fetched entries",
             "entries": myEntries
