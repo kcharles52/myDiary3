@@ -6,22 +6,22 @@
     <title>My entry</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../static/css/main.css" />
-    <script src="../static/js/main.js"></script>
+    
 </head>
 <body>
     <div class="pg-content bg">
 <header id="header">
     <div class="navbar">
         <p>
-            <a href="welcome.html">My Diary</a>
+            <a href="{{url_for('UI.home')}}">My Diary</a>
             <p>
                 <nav>
                     <ul>
                         <li>
-                            <a href="addEntry.html">Create Journel</a>
+                            <a href="{{url_for('UI.addEntry')}}">Create Journel</a>
                         </li>
                         <li>
-                            <a href="diaryentries.html">Diary entries</a>
+                            <a href="{{url_for('UI.FetchEntries')}}">Diary entries</a>
                         </li>
                         <li>
                             <a href="profile.html">My profile</a>
@@ -35,26 +35,9 @@
     </div>
 </header>
 <section>
-        <div class="diaryEntry">
-            <div class="dHeader">
-                <h2>September 14, 2008</h2> 
-                <h2>Wedding Dm</h2>
-            </div>
-            <div class="dBody">
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit nemo voluptate commodi, omnis magni, 
-                    ducimus minus sed nulla itaque maiores in magnam hic numquam corporis? Accusamus aliquid maiores quisquam delectus!
-                    <br>
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam, quibusdam! Animi accusantium obcaecati eaque est reiciendis. Excepturi vitae, 
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam, quibusdam! Animi accusantium obcaecati eaque est reiciendis.
-                    Excepturi vitae, ass
-                    assumenda voluptate qui velit nihil architecto quisquam pariatur iusto. Hic, est nesciunt?
-                </p>
-                <br>
-            <div class="action"> <a  href="modifyentry.html">Edit</a> <a  href="#">Archive</a>
-               </div>
-            </div>
+    <div class="diaryEntry" id='diaryEntry'>
+        <div id='entryid'>{{id}}</div>
+    </div> 
 
 </section>
         
@@ -63,5 +46,10 @@
             <div class="center">Designed by Charles Kato </div>
         </footer>
     </div>
+<script src="../static/js/main.js"></script>
+<script>
+    let id = document.getElementById('entryid').innerText;
+    fetch_entry(id);
+</script>
 </body>
 </html>
