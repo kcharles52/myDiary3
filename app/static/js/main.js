@@ -172,7 +172,7 @@ function fetch_entries() {
                     output +=`
                     <tr class="ceremony">
                     <td>${entry.Date}</td>
-                    <td><a href="">${entry.title}</a></td>
+                    <td> <a href = "/diaryentry.html/${entry.id}"> ${entry.title} </a></td >
                     <td>ceremony</td>
                     <td class="action"><a href="#">Edit</a><a href="#">Archive</a></td>
                     </tr>
@@ -192,3 +192,52 @@ function fetch_entries() {
         .catch(error => alert(error))
     }
 
+function fetch_entry(id) {
+    url = host_server + '/api/v1/entries/'+id
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        redirect: 'manual'
+    })
+        .then(Response => Response.json())
+        .then(data => {
+            if (data['Message'] === 'Successfully fetched entry') {
+
+                // window.location = 'diaryentry.html'
+                // document.getElementById('Date').innerHTML = data['entry']['Date'];
+                // document.getElementById('Date').innerHTML = data['entry']['title'];
+                // document.getElementById('Date').innerHTML = data['entry']['Diary Body'];
+                
+               output =`
+               <div class="dHeader">
+                    <h2> ${data['entry']['Date']}</h2>
+                    <h2>${data['entry']['title']}</h2>
+                </div>
+                <div class="dBody" >
+                    <p>${data['entry']['Diary Body']}</p>
+                    <br>
+                    <div class="action"> <a href="modifyentry.html">Edit</a> <a href="#">Archive</a>
+                </div> `
+                document.getElementById('diaryEntry').innerHTML = output;
+                return output;
+                // console.log(output);
+            } else if (data['Message']) {
+                alert(data['Message']);
+                console.log(data)
+            }
+            // return true;
+        })
+        // .then((reply)=>{
+        //     console.log(reply);
+        //     // window.location ='diaryentry.html';
+        //     // if (document.getElementById('diaryEntry')) {
+        //         document.getElementById('diaryEntry').innerHTML = reply;
+        //     // }
+            
+        //     console.log(reply);
+        // })
+        .catch(error => alert(error))
+}
