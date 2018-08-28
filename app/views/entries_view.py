@@ -65,7 +65,7 @@ def get_single_entry(user,entry_id):
     if not available_entry or available_entry == type(None) :
         return jsonify({"Message": "Diary Entry Not Found"}), 404
     else:
-        return jsonify({'entry': available_entry}), 200
+        return jsonify({'Message': 'Successfully fetched entry', 'entry': {"id": available_entry[0], "title": available_entry[1], "Diary Body": available_entry[2], "Date": available_entry[3]}}), 200
 
 #route for modifying an entry
 @entries.route("/entries/<int:entry_id>", methods=['PUT'])
