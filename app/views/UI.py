@@ -25,7 +25,14 @@ def home(user):
 def addEntry(user):
     return render_template('addEntry.html')
 
-@UI.route('/diaryentries.html', methods=['GET', 'POST'])
+@UI.route('/diaryentries.html', methods=['GET'])
 @protected
 def FetchEntries(user):
     return render_template('diaryentries.html')
+
+
+@UI.route('/diaryentry.html/<int:id>', methods=['GET'])
+@protected
+def FetchEntry(user,id):
+    entryId = id
+    return render_template('diaryentry.html', id=entryId)
