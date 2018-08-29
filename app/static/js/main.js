@@ -113,6 +113,8 @@ function login() {
                 return alert(reply['Message'])
             } else if (reply['status'] ==='success'){
                 location.href = 'welcome.html';
+            } else{
+                alert(reply['Message'])
             }
         })
         .catch(error => alert(error))
@@ -218,9 +220,10 @@ function fetch_entry(id) {
                     <h2> ${data['entry']['Date']}</h2>
                     <h2>${data['entry']['title']}</h2>
                 </div>
-                <div class="dBody" >
+                <div class="dBody" ><pre>
                     <p>${data['entry']['Diary Body']}</p>
                     <br>
+                    </pre>
                     <div class="action"> <a href="modifyentry.html">Edit</a> <a href="#">Archive</a>
                 </div> `
                 document.getElementById('diaryEntry').innerHTML = output;
