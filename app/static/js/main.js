@@ -60,7 +60,9 @@ function openTab(evt, tabName) {
 //function to register user
 function register_user() {
     let url = host_server+ "/api/v1/auth/signup";
-    let Fullname = document.getElementById('FName').value + " " + document.getElementById('LName').value
+    let Fullname = document.getElementById('FName').value + " " + document.getElementById('LName').value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
     fetch(url, {
             method: 'POST',
             mode: 'cors',
@@ -70,17 +72,20 @@ function register_user() {
             },
             body: JSON.stringify({
                 "name": Fullname,
-                "email": document.getElementById("email").value,
-                "password": document.getElementById("password").value
+                "email": email,
+                "password": password
             })
         })
         .then(function (response) {
             return response.json();
         })
         .then(function(data){
-           if(true){
+            console.log(data);
+           if(data['status']==='success'){
                alert(data['message'])
                window.location.href="index.html"
+           }else{
+               alert(data['message'])
            }
         })
         .catch(function (error) {
@@ -88,48 +93,51 @@ function register_user() {
         });
 }
 function login() {
-    url = host_server + '/api/v1/auth/login'
+    let email = document.getElementById('logEmail').value
+    let password = document.getElementById('password').value
+    let  url = host_server + '/api/v1/auth/login'
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            'email': document.getElementById('logEmail').value,
-            'password': document.getElementById('password').value
+            'email': email,
+            'password': password
         }),
         mode: 'cors',
-        redirect: 'manual'
         })
         .then(Response => Response.json())
         .then(reply => {
             if (reply['Message']==='Login failed, Please try again') {
                 return alert(reply['Message'])
-            } else{
-                alert(reply['Message']);
-                window.location= 'welcome.html';
+            } else if (reply['status'] ==='success'){
+                location.href = 'welcome.html';
             }
-            return true;
         })
         .catch(error => alert(error))
 }
+
 function logout() {
     localStorage.removeItem('token');
     window.location.href = 'index.html';
 }
 
 function create_entry() {
-    url = host_server + '/api/v1/entries'
-    fetch(url,{
-        method:'POST',
+   let url = host_server + '/api/v1/entries'
+    let Title = document.getElementById('Title').value;
+    let date = document.getElementById('date').value;
+    let Body = document.getElementById('diaryMessage').value;
+    fetch(url, {
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
-                'diaryTitle': document.getElementById('Title').value,
-                'date': document.getElementById('date').value,
-                'diaryEntryBody': document.getElementById('diaryMessage').value
-            }),
+            'diaryTitle': Title,
+            'date': date,
+            'diaryEntryBody': Body
+        }),
         mode: 'cors',
         redirect: 'manual'
 
@@ -205,12 +213,6 @@ function fetch_entry(id) {
         .then(Response => Response.json())
         .then(data => {
             if (data['Message'] === 'Successfully fetched entry') {
-
-                // window.location = 'diaryentry.html'
-                // document.getElementById('Date').innerHTML = data['entry']['Date'];
-                // document.getElementById('Date').innerHTML = data['entry']['title'];
-                // document.getElementById('Date').innerHTML = data['entry']['Diary Body'];
-                
                output =`
                <div class="dHeader">
                     <h2> ${data['entry']['Date']}</h2>
@@ -223,21 +225,13 @@ function fetch_entry(id) {
                 </div> `
                 document.getElementById('diaryEntry').innerHTML = output;
                 return output;
-                // console.log(output);
+               
             } else if (data['Message']) {
                 alert(data['Message']);
                 console.log(data)
             }
-            // return true;
+
         })
-        // .then((reply)=>{
-        //     console.log(reply);
-        //     // window.location ='diaryentry.html';
-        //     // if (document.getElementById('diaryEntry')) {
-        //         document.getElementById('diaryEntry').innerHTML = reply;
-        //     // }
-            
-        //     console.log(reply);
-        // })
+
         .catch(error => alert(error))
 }
