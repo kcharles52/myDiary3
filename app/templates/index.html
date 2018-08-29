@@ -49,7 +49,7 @@
                         <div class="tab-content">
                             <div id="login">
                                 <h2>Welcome Back!</h2>
-                                <form action="index.html" method="post">
+                                <form  method="post">
                                     <div class="field-wrap">
                                         <label>Email Address
                                             <span class="req">*</span>
@@ -65,7 +65,7 @@
                                     <p class="forgot-p">
                                         <a href="#">Forgot Password?</a>
                                     </p>
-                                    <a id="button" onclick=login() class="button button-block" /> Log In</a>
+                                    <button type="button" onclick="login()" class="button button-block"> Log In</button>
                                 </form>
                                 <!-- Login form-->
                             </div>
@@ -104,7 +104,7 @@
                                         </label>
                                         <input type="password" required autocomplete="off" />
                                     </div>
-                                    <button type="submit" class="button button-block" onclick=register_user()  />Get Started</button>
+                                    <button type="button" class="button button-block" onclick=register_user()>Get Started</button>
                                 </form>
                                 <!--Register form-->
                             </div>
