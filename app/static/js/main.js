@@ -225,13 +225,11 @@ function fetch_entry(id) {
                 </div> `
                 document.getElementById('diaryEntry').innerHTML = output;
                 return output;
-               
             } else if (data['Message']) {
                 alert(data['Message']);
                 console.log(data)
             }
 
         })
-
         .catch(error => alert(error))
 }
