@@ -44,11 +44,11 @@ def fetch_entries(user):
     available_entries = DiaryEntry.fetch_all_entries(user['user_id'])
 
     if not available_entries or available_entries==type(None):
-        return jsonify({"Message": "You have no entries"}), 404
+        return jsonify({"Message": "You have no entries", "entries":[]}), 200
 
     if len(available_entries) >= 1:
         for entry in available_entries:
-            myEntries.append(entry)
+            myEntries.append({"entry_id":entry[0],"diaryTitle":entry[1], "diaryEntryBody":entry[2],"date":str(entry[3]),"userId":entry[4]})
         return jsonify({
             "Message": "Successfully fetched entries",
             "entries": myEntries
@@ -60,11 +60,11 @@ def fetch_entries(user):
 @protected
 def get_single_entry(user,entry_id):
     """ Endpoint to fetch a single entry """
-    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
-    if not available_entry or available_entry == type(None) :
-        return jsonify({"Message": "Diary Entry Not Found"}), 404
+    entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
+    if not entry or entry == type(None) :
+        return jsonify({"Message": "Diary Entry Not Found"}), 200
     else:
-        return jsonify({'entry': available_entry}), 200
+        return jsonify({'entry': {"entry_id":entry[0],"diaryTitle":entry[1], "diaryEntryBody":entry[2],"date":str(entry[3]),"userId":entry[4]}}), 200
 
 #route for modifying an entry
 @entries.route("/entries/<int:entry_id>", methods=['PUT'])
@@ -88,3 +88,18 @@ def modify_entry(user,entry_id):
                 "entry": modified_entry.__dict__,
                 "Message": "You successfully modified your entry"
             }), 201
+
+@entries.route("/entries/<int:entry_id>", methods=['DELETE'])
+@protected
+def delete_entry(user,entry_id):
+    """ Endpoint to delete a given entry"""
+    available_entry = DiaryEntry.fetch_single_entry(user['user_id'],entry_id)
+    if not available_entry or available_entry == type(None):
+        return jsonify({"Message": "You have no entries to delete"}), 404
+
+    if len(available_entry) >= 1:
+        # print(available_entry)
+        DiaryEntry.delete_entry(entry_id)
+        return jsonify({
+                "Message": "You successfully deleted your entry"
+            }), 200

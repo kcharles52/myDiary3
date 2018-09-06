@@ -45,6 +45,8 @@ GET| /api/v1/entries   | Fetch all entries for a user
 GET | /api/v1/entry/<entry_Id> | Fetch the details of an entry for a user |
 POST | /api/v1/entry | Add an entry|
 PUT | /api/v1/entries/<entry_id>/ | Modify a diary entry|An entry can only be modified on the same day it was created.
+DELETE | /api/v1/entries/<entry_id>/ | Delete a diary entry|An entry can only be modified on the same day it was created.
+
 
 
 ## Author

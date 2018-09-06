@@ -34,3 +34,7 @@ class DiaryEntry:
     def edit_entry(self, entry_id):
         conn.cursor.execute(
             """UPDATE entries SET diaryTitle = %s ,diaryBody = %s ,diaryDate = %s  WHERE entry_id=%s """, (self.diaryTitle, self.diaryEntryBody, self.date, entry_id))
+    @classmethod
+    def delete_entry(self, entry_id):
+        conn.cursor.execute(
+            """DELETE FROM entries  WHERE entry_id=%s """, (entry_id,))

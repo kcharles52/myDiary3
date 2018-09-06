@@ -6,11 +6,8 @@ from passlib.hash import sha256_crypt
 from ..models.user_model import UsersModel
 from ..views.decorate_endpoint import generate_token
 
-
 #create a blueprint
 users = Blueprint('users',__name__)
-
-
 @users.route('/signup', methods=['POST'])
 def register_user():
     #get user data from request
@@ -44,7 +41,6 @@ def register_user():
 
     return jsonify({'status':'success', 'message': 'User {} has been registered'.format(name)}), 201
 
-
 @users.route('/login', methods=['POST'])
 def login_user():
 
@@ -65,11 +61,15 @@ def login_user():
         return jsonify({'Message': 'password  is required'}), 400
 
     loggedin_user = UsersModel.fetch_user(email)
-
+    if loggedin_user==None:
+        return jsonify({'Message': 'User not found'}), 404
+    
     stored_password = loggedin_user[3]
 
     if sha256_crypt.verify(password,stored_password):
        email,user_id = email,loggedin_user[0]
        generated_token = str(generate_token({"email":email,"user_id":user_id}))
-       
-    return jsonify({ "status":"success","Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
+       return jsonify({ "status":"success","Message": "Welcome {}. You are logged in".format(loggedin_user[1]), "token": generated_token}), 200
+    
+    return jsonify({ "status":"Failed","Message": "Check login details and try again"}), 400
+   

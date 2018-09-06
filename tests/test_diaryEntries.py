@@ -99,7 +99,7 @@ class EntriesTest(BaseTestCase):
         self.assertTrue(data['status'] == 'success')
         response = self.test_client.get(
             '/api/v1/entries', headers={'Authorization': data['token']}, content_type='application/json')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
         self.assertIn('You have no entries', str(response.data))
 
     def test_get_all_entries(self):
@@ -147,7 +147,7 @@ class EntriesTest(BaseTestCase):
             '/api/v1/entries', headers={'Authorization': data['token']}, data=json.dumps(self.diary_entry_data), content_type='application/json')
         response = self.test_client.get(
             '/api/v1/entries/3', headers={'Authorization': data['token']},content_type='application/json')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
         self.assertIn('Diary Entry Not Found', str(response.data))
 
     #tests for modifying entry
